@@ -8,27 +8,40 @@ for(let i = 1; i <= 151; i++){
 } 
 
 function mostrarPokemon(poke){
+
+    let tipos = poke.types.map((type) =>`<p class="${type.type.name} type">${type.type.name}</p>`);
+    tipos = tipos.join('');
+
+    let pokeId = poke.id.toString();
+    if(pokeId.length === 1){
+        pokeId = "00" + pokeId;
+    } else if(
+        pokeId.length === 2
+    ){
+        pokeId = "0"+pokeId;
+    }
+
+
     const div = document.createElement("div");
     div.classList.add("pokemon");
     div.innerHTML = `
     <div class="pokemon">
-                <p class="pokemon-id-bg">${poke.id}</p>
+                <p class="pokemon-id-bg">${pokeId}</p>
                 <div class="pokemon-img">
                     <img src="${poke.sprites.other["official-artwork"].front_default}"
                     alt="${poke.name}">
                 </div>
                 <div class="pokemon-info">
                     <div class="name-bx">
-                        <p class="pokemon-id">${poke.id}</p>
+                        <p class="pokemon-id">${pokeId}</p>
                         <h2 class="pokemon-name">${poke.name}</h2>
                     </div>
                     <div class="pokemon-types">
-                        <p class="type electric">Electric</p>
-                        <p class="type fighting">Fighting</p>
+                       ${tipos}
                     </div>
                     <div class="pokemon-stats">
-                        <p class="stat">${poke.height}</p>
-                        <p class="stat">${poke.weight}</p>
+                        <p class="stat">${poke.height}ft</p>
+                        <p class="stat">${poke.weight}lbs</p>
                     </div>
                 </div>
             </div>
