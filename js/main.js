@@ -19,9 +19,8 @@ function mostrarPokemon(poke) {
         pokeId = "0" + pokeId;
     }
 
-    // Extract the cry URLs from the API response (latest or legacy)
+    // Extract the latest cry URL from the API response
     const cryLatestURL = poke.cries?.latest || '';
-    const cryLegacyURL = poke.cries?.legacy || '';
 
     const div = document.createElement("div");
     div.classList.add("pokemon");
@@ -44,10 +43,8 @@ function mostrarPokemon(poke) {
                         <p class="stat">${poke.weight / 10}kg</p>
                     </div>
                     <div class="pokemon-cry">
-                        <button class="btn-cry" onclick="playCry(${poke.id}, 'latest')">Rugido</button>
-                      
-                        <audio id="cry-latest-${poke.id}" src="${cryLatestURL}"></audio>
-                        <audio id="cry-legacy-${poke.id}" src="${cryLegacyURL}"></audio>
+                        <button class="btn-cry" onclick="playCry(${poke.id})">Rugido</button>
+                        <audio id="cry-${poke.id}" src="${cryLatestURL}"></audio>
                     </div>
                 </div>
             </div>
@@ -55,9 +52,8 @@ function mostrarPokemon(poke) {
     listaPokemon.append(div);
 }
 
-// Function to play the Pokémon cry (latest or legacy version)
-function playCry(pokeId, version) {
-    const audio = document.getElementById(`cry-${version}-${pokeId}`);
+function playCry(pokeId) {
+    const audio = document.getElementById(`cry-${pokeId}`);
     if (audio) {
         audio.play();
     }
