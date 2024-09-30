@@ -1,12 +1,16 @@
 const listaPokemon = document.querySelector("#listaPokemon");
 const botonesHeader = document.querySelectorAll(".btn-header");
-let URL = "https://pokeapi.co/api/v2/pokemon/";
+let URL = "https://pokeapi.co/api/v2/generation/1/";
 
-for(let i = 1; i <= 151; i++){
+/*for(let i = 1; i <= 151; i++){
     fetch(URL + i)
         .then((response) => response.json())
         .then(data => mostrarPokemon(data))
-} 
+}*/ 
+
+fetch(URL)
+    .then((response)=>response.json())
+    .then(data => mostrarPokemon(data))
 
 function mostrarPokemon(poke) {
     let tipos = poke.types.map((type) => `<p class="${type.type.name} type">${type.type.name}</p>`);
