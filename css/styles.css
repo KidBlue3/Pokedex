@@ -60,6 +60,23 @@ header{
     box-shadow: 0 0 2rem -1rem rgba(0, 0, 0, .5);
 }
 
+.btn-cry {
+    background-color: #F8D030;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 100vmax;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cry:hover {
+    background-color: #E0B714;
+}
+
 .nav{
     display: flex;
     flex-direction: column;

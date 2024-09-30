@@ -8,20 +8,20 @@ for(let i = 1; i <= 151; i++){
         .then(data => mostrarPokemon(data))
 } 
 
-function mostrarPokemon(poke){
-
-    let tipos = poke.types.map((type) =>`<p class="${type.type.name} type">${type.type.name}</p>`);
+function mostrarPokemon(poke) {
+    let tipos = poke.types.map((type) => `<p class="${type.type.name} type">${type.type.name}</p>`);
     tipos = tipos.join('');
 
     let pokeId = poke.id.toString();
-    if(pokeId.length === 1){
+    if (pokeId.length === 1) {
         pokeId = "00" + pokeId;
-    } else if(
-        pokeId.length === 2
-    ){
-        pokeId = "0"+pokeId;
+    } else if (pokeId.length === 2) {
+        pokeId = "0" + pokeId;
     }
 
+    // Extract the cry URLs from the API response (latest or legacy)
+    const cryLatestURL = poke.cries?.latest || '';
+    const cryLegacyURL = poke.cries?.legacy || '';
 
     const div = document.createElement("div");
     div.classList.add("pokemon");
@@ -29,8 +29,7 @@ function mostrarPokemon(poke){
     <div class="pokemon">
                 <p class="pokemon-id-bg">#${pokeId}</p>
                 <div class="pokemon-img">
-                    <img src="${poke.sprites.other["official-artwork"].front_default}"
-                    alt="${poke.name}">
+                    <img src="${poke.sprites.other["official-artwork"].front_default}" alt="${poke.name}">
                 </div>
                 <div class="pokemon-info">
                     <div class="name-bx">
@@ -41,13 +40,27 @@ function mostrarPokemon(poke){
                        ${tipos}
                     </div>
                     <div class="pokemon-stats">
-                        <p class="stat">${poke.height}ft</p>
-                        <p class="stat">${poke.weight}lbs</p>
+                        <p class="stat">${poke.height / 10}m</p>
+                        <p class="stat">${poke.weight / 10}kg</p>
+                    </div>
+                    <div class="pokemon-cry">
+                        <button class="btn-cry" onclick="playCry(${poke.id}, 'latest')">Rugido</button>
+                      
+                        <audio id="cry-latest-${poke.id}" src="${cryLatestURL}"></audio>
+                        <audio id="cry-legacy-${poke.id}" src="${cryLegacyURL}"></audio>
                     </div>
                 </div>
             </div>
         `;
-        listaPokemon.append(div);
+    listaPokemon.append(div);
+}
+
+// Function to play the Pokémon cry (latest or legacy version)
+function playCry(pokeId, version) {
+    const audio = document.getElementById(`cry-${version}-${pokeId}`);
+    if (audio) {
+        audio.play();
+    }
 }
 
 botonesHeader.forEach(boton => boton.addEventListener("click",(event)=>{
